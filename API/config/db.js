@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import  Sequelize  from 'sequelize';
 
 const sequelize = new Sequelize('Annuaire', 'root', 'root', {
     host: 'localhost',

@@ -1,21 +1,21 @@
 import express from 'express';
 import { Employe } from '../models/index.js';
 
-const router = express.Router();
+const router = express.Router(); // Utilisation de router, pas de app
 
 // GET : Récupérer tous les employés
-app.get('/employes', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const employes = await Employe.findAll();
         res.status(200).json(employes);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erreur lors de la récupération des employés.' });
+        console.error('Erreur lors de la récupération des employés :', error);
+        res.status(500).json({ message: 'Erreur serveur.' });
     }
 });
 
 // POST : Créer un nouvel employé
-app.post('/employes', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const { nom, prenom, poste, telephone, email, site_id, date_embauche } = req.body;
         const newEmploye = await Employe.create({
@@ -25,17 +25,17 @@ app.post('/employes', async (req, res) => {
             telephone,
             email,
             site_id,
-            date_embauche
+            date_embauche,
         });
         res.status(201).json(newEmploye);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erreur lors de la création de l\'employé.' });
+        console.error('Erreur lors de la création de l\'employé :', error);
+        res.status(500).json({ message: 'Erreur serveur.' });
     }
 });
 
 // GET : Récupérer un employé par ID
-app.get('/employes/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const employe = await Employe.findByPk(req.params.id);
         if (!employe) {
@@ -43,13 +43,13 @@ app.get('/employes/:id', async (req, res) => {
         }
         res.status(200).json(employe);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erreur lors de la récupération de l\'employé.' });
+        console.error('Erreur lors de la récupération de l\'employé :', error);
+        res.status(500).json({ message: 'Erreur serveur.' });
     }
 });
 
 // PUT : Mettre à jour un employé
-app.put('/employes/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { nom, prenom, poste, telephone, email, site_id, date_embauche } = req.body;
@@ -70,13 +70,13 @@ app.put('/employes/:id', async (req, res) => {
         await employe.save();
         res.status(200).json(employe);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erreur lors de la mise à jour de l\'employé.' });
+        console.error('Erreur lors de la mise à jour de l\'employé :', error);
+        res.status(500).json({ message: 'Erreur serveur.' });
     }
 });
 
 // DELETE : Supprimer un employé
-app.delete('/employes/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         const employe = await Employe.findByPk(req.params.id);
 
@@ -87,8 +87,8 @@ app.delete('/employes/:id', async (req, res) => {
         await employe.destroy();
         res.status(204).send(); // Pas de contenu
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erreur lors de la suppression de l\'employé.' });
+        console.error('Erreur lors de la suppression de l\'employé :', error);
+        res.status(500).json({ message: 'Erreur serveur.' });
     }
 });
 

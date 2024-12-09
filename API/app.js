@@ -2,6 +2,9 @@ import express from 'express';
 import sequelize from './config/db.js';
 import { Site, Employe, SitesDepartements } from './models/index.js';
 import adminRoutes from './routes/admin.js';
+import employeRoutes from './routes/employe.js';
+import siteRoutes from './routes/site.js';
+import sitesDepartementsRoutes from './routes/sites_departements.js';
 
 const app = express();
 const port = 3000;

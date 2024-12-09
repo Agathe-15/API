@@ -1,6 +1,6 @@
 import Site from './Site.js';
 import Employe from './Employe.js';
-import SitesDepartements from './SiteDepartements.js';
+import SitesDepartements from './SitesDepartements.js';
 
 // Définir les relations ici
 Site.hasMany(Employe, { foreignKey: 'site_id' });

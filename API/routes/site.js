@@ -1,33 +1,33 @@
 import express from 'express';
-import { sequelize } from '../config/db.js';
+import { Site } from '../models/index.js'; // Assurez-vous que le modèle Site est correctement importé
 
-const router = express.Router();
+const router = express.Router(); // Utilisez router au lieu de app
 
 // GET : Récupérer tous les sites
-app.get('/sites', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const sites = await Site.findAll();
         res.status(200).json(sites);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erreur lors de la récupération des sites.' });
+        console.error('Erreur lors de la récupération des sites :', error);
+        res.status(500).json({ message: 'Erreur serveur.' });
     }
 });
 
 // POST : Créer un nouveau site
-app.post('/sites', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const { nom, ville, type, adresse, telephone, email } = req.body;
         const newSite = await Site.create({ nom, ville, type, adresse, telephone, email });
         res.status(201).json(newSite);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erreur lors de la création du site.' });
+        console.error('Erreur lors de la création du site :', error);
+        res.status(500).json({ message: 'Erreur serveur.' });
     }
 });
 
 // GET : Récupérer un site par ID
-app.get('/sites/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const site = await Site.findByPk(req.params.id);
         if (!site) {
@@ -35,13 +35,13 @@ app.get('/sites/:id', async (req, res) => {
         }
         res.status(200).json(site);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erreur lors de la récupération du site.' });
+        console.error('Erreur lors de la récupération du site :', error);
+        res.status(500).json({ message: 'Erreur serveur.' });
     }
 });
 
 // PUT : Mettre à jour un site
-app.put('/sites/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { nom, ville, type, adresse, telephone, email } = req.body;
@@ -61,13 +61,13 @@ app.put('/sites/:id', async (req, res) => {
         await site.save();
         res.status(200).json(site);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erreur lors de la mise à jour du site.' });
+        console.error('Erreur lors de la mise à jour du site :', error);
+        res.status(500).json({ message: 'Erreur serveur.' });
     }
 });
 
 // DELETE : Supprimer un site
-app.delete('/sites/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         const site = await Site.findByPk(req.params.id);
 
@@ -78,8 +78,8 @@ app.delete('/sites/:id', async (req, res) => {
         await site.destroy();
         res.status(204).send(); // Pas de contenu
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erreur lors de la suppression du site.' });
+        console.error('Erreur lors de la suppression du site :', error);
+        res.status(500).json({ message: 'Erreur serveur.' });
     }
 });
 

@@ -47,7 +47,7 @@
     <Content Include="models\Site.js">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="models\SiteDepartements.js">
+    <Content Include="models\SitesDepartements.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="package.json" />

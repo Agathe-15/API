@@ -35,6 +35,9 @@
     <Content Include="config\db.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\admin.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="models\Employe.js">
       <SubType>Code</SubType>
     </Content>
@@ -49,10 +52,20 @@
     </Content>
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="routes\employe.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\site.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\sites_departements.js">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="models\" />
     <Folder Include="config\" />
+    <Folder Include="routes\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
 </Project>

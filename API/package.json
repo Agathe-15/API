@@ -7,6 +7,10 @@
   "author": {
     "name": ""
   },
+  "scripts": {
+    "start": "node app.js",
+    "serve": "node app.js"
+  },
   "devDependencies": {
     "eslint": "^8.21.0"
   },
@@ -16,6 +20,8 @@
     "cors": "^2.8.5",
     "express": "^4.21.1",
     "mql2": "^1.0.8",
-    "sequelize": "^6.37.5"
+    "sequelize": "^6.37.5",
+    "serve": "^14.2.4",
+    "winston": "^3.17.0"
   }
 }

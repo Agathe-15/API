@@ -27,7 +27,9 @@ router.get('/password', async (req, res) => {
         `);
 
         if (result.length > 0) {
-            res.status(200).send(result[0].MotDePasse);
+            const passwordHash = result[0].MotDePasse.trim(); // Trim ici
+            console.log('Mot de passe récupéré depuis la base :', passwordHash);
+            res.status(200).send(passwordHash);
         } else {
             res.status(404).send('Mot de passe non trouvé.');
         }

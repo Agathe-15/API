@@ -1,52 +1,57 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/db.js';
 import Site from './Site.js';
+import Departement from './Departement.js';
 
 const Employe = sequelize.define('Employe', {
     employe_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
     },
     nom: {
-        type: DataTypes.STRING(50),
-        allowNull: false
+        type: DataTypes.STRING,
+        allowNull: false,
     },
     prenom: {
-        type: DataTypes.STRING(50),
-        allowNull: false
-    },
-    poste: {
-        type: DataTypes.STRING(50),
-        allowNull: false
-    },
-    telephone: {
-        type: DataTypes.STRING(20),
-        allowNull: false
-    },
-    email: {
-        type: DataTypes.STRING(50),
-        allowNull: false
-    },
-    site_id: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Site,
-            key: 'site_id'
-        },
-        allowNull: false
+        type: DataTypes.STRING,
+        allowNull: false,
     },
     departement_id: {
         type: DataTypes.INTEGER,
-        allowNull: true // Foreign key to departements, make sure to link later
+        allowNull: false,
+        references: {
+            model: 'Departements',
+            key: 'departement_id'
+        }
+    },
+    telephone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    site_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'Sites',
+            key: 'site_id'
+        }
     },
     date_embauche: {
         type: DataTypes.DATE,
-        allowNull: false
-    }
+        allowNull: false,
+    },
 }, {
     tableName: 'Employes',
-    timestamps: false
+    timestamps: false,
 });
+
+// Définition des relations
+Employe.belongsTo(Site, { foreignKey: 'site_id', as: 'Site' });
+Employe.belongsTo(Departement, { foreignKey: 'departement_id', as: 'Departement' }); // Liaison avec Departement
 
 export default Employe;

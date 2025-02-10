@@ -1,5 +1,6 @@
 import express from 'express';
 import { Site } from '../models/index.js'; // Assurez-vous que le modèle Site est correctement importé
+import { adminLock } from '../routes/admin.js';
 
 const router = express.Router(); // Utilisez router au lieu de app
 
@@ -42,6 +43,9 @@ router.get('/:id', async (req, res) => {
 
 // PUT : Mettre à jour un site
 router.put('/:id', async (req, res) => {
+    if (adminLock) {
+        return res.status(423).json({ message: "? Modification verrouillée. Attendez la fin de l'édition." });
+    }
     try {
         const { id } = req.params;
         const { nom, ville, type, adresse, telephone, email } = req.body;
@@ -59,10 +63,10 @@ router.put('/:id', async (req, res) => {
         site.email = email || site.email;
 
         await site.save();
-        res.status(200).json(site);
+        res.status(200).json({ message: "? Site mis à jour avec succès.", site });
     } catch (error) {
-        console.error('Erreur lors de la mise à jour du site :', error);
-        res.status(500).json({ message: 'Erreur serveur.' });
+        console.error('? Erreur lors de la mise à jour du site :', error);
+        res.status(500).json({ message: '? Erreur serveur.', error });
     }
 });
 
